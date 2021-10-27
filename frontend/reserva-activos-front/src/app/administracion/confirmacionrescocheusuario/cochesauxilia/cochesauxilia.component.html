@@ -1,0 +1,18 @@
+<div class="col-12  mt-3"> Reservas por validar del Coche : {{coche.matricula }}</div>
+<div class="row">
+    <div class="col-3 mx-2">Marca</div>
+      <div class="col-2 mx-2">Modelo</div>
+      <div class="col-2 mx-2">Matrícula</div>
+      
+    </div>
+    <hr class='w-100'>
+    <div *ngFor='let reserva of reservas'>
+        <ul *ngIf = "reserva.reservaAprobada ===false" >
+      <app-cocheauxilia
+      [reserva]= 'reserva'
+      [idReserva] = 'reserva.id'
+      [idCoche] = 'coche.id'
+      [id] = 'id'
+      ></app-cocheauxilia>
+    </ul>
+</div>

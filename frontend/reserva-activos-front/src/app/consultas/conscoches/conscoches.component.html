@@ -1,0 +1,14 @@
+
+<h1>Elija el Coche del que quiere realizar consulta</h1>
+<section>
+      <label for="Coche">Coche</label>
+      <select name="Coche" [(ngModel)]="coche.id">
+        <option *ngFor="let co of coches" [value]="co.id">
+          <span>{{ co.matricula }}</span>
+        </option>
+      </select>
+  </section>
+ <button type="button" class="btn btn-primary" role="button"  [routerLink]="['/consultas/reservacoche', coche.id]"
+ routerLinkActive="router-link-active">Consultar Reservas</button>
+   
+ 

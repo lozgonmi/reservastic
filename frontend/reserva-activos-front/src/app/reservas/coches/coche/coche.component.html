@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-3   mt-3">{{coche.marca | titlecase}} </div>
+    <div class="col-2  mt-3" > {{coche.modelo | titlecase}}</div>
+    <div class="col-2  mt-3" > {{coche.matricula | titlecase}}</div>
+   
+    <div class="col-1"></div>
+    
+    <div class="col-2"><a class="" data-toggle="modal"
+      data-target="#modalreservas" (click)='cocheSeleccionado.emit(coche)'>
+       <button  type="button" name="editar"  class="btn"  >
+     Reservar</button></a></div>
+  </div>
+
