@@ -11,12 +11,15 @@ import { ConfirmacionresusuarioComponent } from './confirmacionreservasusuario/c
 
 import { AulasauxiliaComponent } from './confirmacionreservasusuario/aulasauxilia/aulasauxilia.component';
 import { AulasauxComponent } from './confirmacionreservasusuario/aulasauxilia/aulasaux/aulasaux.component';
+import { ConfirmacionrescocheusuarioComponent } from './confirmacionrescocheusuario/confirmacionrescocheusuario.component';
+import { CochesauxiliaComponent } from './confirmacionrescocheusuario/cochesauxilia/cochesauxilia.component';
+import { CocheauxiliaComponent } from './confirmacionrescocheusuario/cochesauxilia/cocheauxilia/cocheauxilia.component';
 
 
 
 
 @NgModule({
-  declarations: [ AdministradorComponent,  ConfirmacionreservasusuarioComponent, ConfirmacionresusuarioComponent,  AulasauxiliaComponent, AulasauxComponent],
+  declarations: [ AdministradorComponent,  ConfirmacionreservasusuarioComponent, ConfirmacionresusuarioComponent,  AulasauxiliaComponent, AulasauxComponent, ConfirmacionrescocheusuarioComponent, CochesauxiliaComponent, CocheauxiliaComponent],
   imports: [
     CommonModule,
     AdministracionRoutingModule,

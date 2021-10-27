@@ -13,10 +13,17 @@
         
           </div>
      </div>
-     <div class="col-3">
-      <button type="button" class="btn btn-success">
-        <a  routerLink="consultas">Consultas</a></button>
-     </div>
+     <div class="col-3" routerLinkActive="router-link-active" >
+      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Consultas
+       </button>
+         <div class="dropdown-menu" >
+         <a class="dropdown-item" routerLink="consultas">Aulas</a>
+         <a class="dropdown-item" routerLink="consultas/coches">Coches</a>
+       
+         </div>
+    </div>
+    
      <div class="col-3">
       <button type="button" class="btn btn-success">
         <a  routerLink="administracion">Administracion</a></button>

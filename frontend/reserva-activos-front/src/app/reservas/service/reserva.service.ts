@@ -10,6 +10,8 @@ import { Reserva } from '../models/reserva';
 import { ReservaImpl } from '../models/reserva-impl';
 import { Usuario } from '../models/usuario';
 import { UsuarioImpl } from '../models/usuario-impl';
+import { Coche } from '../models/coche';
+import { CocheImpl } from '../models/coche-impl';
 
 
 
@@ -19,6 +21,7 @@ import { UsuarioImpl } from '../models/usuario-impl';
 export class ReservaService {
 
    private urlEndPoint: string = environment.hostControladores + 'aulas';
+   private urlEndPointCoches: string = environment.hostControladores + 'coches';
    private urlReservas: string = environment.hostControladores + 'reservaconids';
    private urlUsuario: string = environment.hostControladores + 'usuarioconids';
    private stored: number [];
@@ -31,6 +34,9 @@ export class ReservaService {
   getAulas() : Observable<any>{
     return this.http.get<any>(this.urlEndPoint)
    
+  }
+  getCoches() : Observable<any>{
+    return this.http.get<any>(this.urlEndPointCoches)
   }
   guardoAulasDisponibles(item: number[]) {
     this.stored=item;
@@ -69,6 +75,33 @@ devuelvoReserva():  any[] {
     return aula;
 
   }
+
+  mapearCoches(response: any): Coche[] {
+    let coches: Coche[] = [];
+    let cocheMapeado : Coche;
+    response._embedded.coches.forEach((e) => {
+      cocheMapeado = this.mapearCoche(e);
+      
+      
+      coches.push(cocheMapeado);
+    });
+    console.log (coches)
+    
+    return coches;
+  }
+  mapearCoche(reservaAPI: any) : CocheImpl{
+    let coche: CocheImpl = new CocheImpl();
+    let urlCoche = reservaAPI._links.coche.href;
+    let index = urlCoche.lastIndexOf("/");
+    coche.id = urlCoche.substring(index + 1);
+    coche.matricula = reservaAPI.matricula;
+    coche.modelo = reservaAPI.modelo;
+    coche.marca = reservaAPI.marca;
+  
+   console.log(coche)
+    return coche;
+
+  }
   getUsuarios() : Observable<any>{
     return this.http.get<any>(this.urlUsuario)
    
@@ -103,7 +136,7 @@ devuelvoReserva():  any[] {
     return this.http.get<Aula>(`${this.urlUsuario}/${id}/activos`). pipe(
       catchError((e) => {
         if (e.status !== 401 && e.error.mensaje) {
-          this.router.navigate(['/propietarios']);
+          this.router.navigate(['/consultas']);
           console.error(e.error.mensaje);
         }
         return throwError(e);
@@ -123,6 +156,16 @@ mapearReservasActivoPorUsuario(response: any): Aula[]{
     return aulas;
 
   }
+  mapearReservaCochePorUsuario(response: any): Coche[]{
+    let coches: Coche[] = [];
+    let cocheMapeado : Coche;
+      response._embedded.coches.forEach((e) => {
+        cocheMapeado = this.mapearCoche(e);
+        coches.push(cocheMapeado);
+      });
+      console.log(coches);
+      return coches;
+  }
   getAulaId(id): Observable<Aula> {
     console.log(id);
     return this.http.get<Aula>(`${this.urlEndPoint}/${id}`).pipe(
@@ -138,6 +181,18 @@ mapearReservasActivoPorUsuario(response: any): Aula[]{
   getAulaReservaId(id): Observable<Aula> {
     console.log(id);
     return this.http.get<Aula>(`${this.urlReservas}/${id}/activo`).pipe(
+      catchError((e) => {
+        if (e.status !== 401 && e.error.mensaje) {
+          this.router.navigate(['/propietarios']);
+          console.error(e.error.mensaje);
+        }
+        return throwError(e);
+      })
+    );
+  }
+  getCocheReservaId(id): Observable<Coche> {
+    console.log(id);
+    return this.http.get<Coche>(`${this.urlReservas}/${id}/activo`).pipe(
       catchError((e) => {
         if (e.status !== 401 && e.error.mensaje) {
           this.router.navigate(['/propietarios']);
@@ -166,8 +221,18 @@ mapearReservasActivoPorUsuario(response: any): Aula[]{
     aula.id = urlAula.substring(index + 1);
     aula.nombreAula = reservaAPI.nombreAula;
     aula.proyector = reservaAPI.proyector;
-  
     return aula;
+  }
+  getIdCocheReservaId(reservaAPI: any) : CocheImpl{
+    let coche: CocheImpl = new CocheImpl();
+    let urlCoche = reservaAPI._links.coche.href;
+    let index = urlCoche.lastIndexOf("/");
+    coche.id = urlCoche.substring(index + 1);
+    coche.marca = reservaAPI.marca;
+    coche.modelo = reservaAPI.modelo;
+    coche.matricula = reservaAPI.matricula;
+  
+    return coche;
 
   }
   getIdUsuarioReservaId(reservaAPI: any) : UsuarioImpl{
@@ -252,6 +317,11 @@ borrar(id: number): Observable<Reserva> {
 getReservasActivo(idActivo: number){
   return this.http.get<Reserva[]>(
     `${this.urlEndPoint}/${idActivo}/reservas`
+  );
+}
+getReservasCocheActivo(idActivo: number){
+  return this.http.get<Reserva[]>(
+    `${this.urlEndPointCoches}/${idActivo}/reservas`
   );
 }
 

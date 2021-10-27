@@ -11,11 +11,13 @@ import { AulasComponent } from './aulas/aulas.component';
 import { AulaComponent } from './aulas/aula/aula.component';
 import { ReservaulasComponent } from './reservaulas/reservaulas.component';
 import { ConfirmoreservaComponent } from './reservaulas/confirmoreserva/confirmoreserva.component';
+import { CochesComponent } from './coches/coches.component';
+import { CocheComponent } from './coches/coche/coche.component';
 
 
 
 @NgModule({
-  declarations: [ ReservasformComponent, AulasComponent, AulaComponent, ReservaulasComponent, ConfirmoreservaComponent],
+  declarations: [ ReservasformComponent, AulasComponent, AulaComponent, ReservaulasComponent, ConfirmoreservaComponent, CochesComponent, CocheComponent],
   imports: [
     CommonModule,
     ReservasRoutingModule,

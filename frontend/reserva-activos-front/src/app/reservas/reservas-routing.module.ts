@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AulasComponent } from './aulas/aulas.component';
+import { CochesComponent } from './coches/coches.component';
 import { ReservasformComponent } from './reservasform/reservasform.component';
 import { ConfirmoreservaComponent } from './reservaulas/confirmoreserva/confirmoreserva.component';
 import { ReservaulasComponent } from './reservaulas/reservaulas.component';
@@ -13,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'coches',
-    component: AulasComponent
+    component: CochesComponent
   },
   {
     path: 'confirmoreserva/:capacidad/:proyector/:fechaInicio/:fechaFin/:usuario',
